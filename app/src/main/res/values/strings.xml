@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Final Project</string>\
+    <string name="app_name">Final Project</string>
+    <string name="first">First Commit</string>
+
 </resources>
