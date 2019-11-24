@@ -51,7 +51,7 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
                 adapter.add(itemEntered);
                 itemET.setText("");
 
-                FileHelper.writeData(items, this);
+                //FileHelper.writeData(items, this);
 
                 Toast.makeText(this, "Item Added", Toast.LENGTH_SHORT).show();
                 break;
@@ -63,7 +63,7 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         items.remove(position);
         adapter.notifyDataSetChanged();
-        FileHelper.writeData(items, this);
+        //FileHelper.writeData(items, this);
         Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
     }
 }
