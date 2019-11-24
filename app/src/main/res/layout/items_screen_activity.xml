@@ -56,6 +56,38 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hGuideline1"
+        app:layout_constraintBottom_toTopOf="@id/hGuideline2"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@id/vGuideline3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/item_edit_text"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_item"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/items_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hGuideline2"
+        app:layout_constraintBottom_toTopOf="@id/hGuideline3"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@id/vGuideline3">
+    </ListView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bottom_button"
         android:layout_width="wrap_content"
@@ -66,6 +98,8 @@
         app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
         app:layout_constraintRight_toLeftOf="@+id/vGuideline2"
         app:layout_constraintTop_toBottomOf="@+id/hGuideline3"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
