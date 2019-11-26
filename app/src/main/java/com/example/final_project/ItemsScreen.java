@@ -1,5 +1,6 @@
 package com.example.final_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +35,7 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
 
         items = FileHelper.readData(this);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_multichoice, items);
         itemsList.setAdapter(adapter);
 
         addBtn.setOnClickListener(this);
@@ -61,9 +62,14 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        items.remove(position);
-        adapter.notifyDataSetChanged();
+        //items.remove(position);
+        //adapter.notifyDataSetChanged();
         //FileHelper.writeData(items, this);
-        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ItemsScreen.this, Individual_Items.class);
+        //Something here to move item name to top of next activity screen
+        //String message = itemsList.....
+        startActivity(intent);
     }
 }
