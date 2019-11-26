@@ -21,20 +21,20 @@ public class MainActivity extends AppCompatActivity {
         launchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openItemsScreenActivity();
+                openMasterListScreenActivity();
             }
         });
 
        
     }
 
-    private void openItemsScreenActivity() {
-        Intent intent = new Intent(this, ItemsScreen.class);
+    private void openMasterListScreenActivity() {
+        Intent intent = new Intent(this, MasterListScreen.class);
         startActivity(intent);
     }
 
 
     public void onClick(View view) {
-        openItemsScreenActivity();
+        openMasterListScreenActivity();
     }
 }
