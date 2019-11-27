@@ -30,7 +30,9 @@ public class MasterListScreen extends AppCompatActivity {
     private ListView mTaskListView;
     private TaskDbHelper mHelper;
     private ArrayAdapter<String> mAdapter;
-    private MaterialButton detailButton;
+    private TextView detailButton;
+    public static final String EXTRA_LISTNAME = "list name";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class MasterListScreen extends AppCompatActivity {
 
         mHelper = new TaskDbHelper(this);
         mTaskListView = findViewById(R.id.master_todo_list);
-        detailButton = findViewById(R.id.master_details_item_button);
+        detailButton = findViewById(R.id.task_title);
 
         updateUI();
     }
@@ -118,11 +120,16 @@ public class MasterListScreen extends AppCompatActivity {
     }
 
     public void detailTask(View view){
-        openItemsScreenActivity();
+        openItemsScreenActivity(view);
     }
 
-    private void openItemsScreenActivity() {
-            Intent intent = new Intent(this, ItemsScreen.class);
-            startActivity(intent);
+    private void openItemsScreenActivity(View view) {
+        View parent = (View) view.getParent();
+        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
+        String task = String.valueOf(taskTextView.getText());
+
+        Intent intent = new Intent(this, ItemsScreen.class);
+        intent.putExtra(EXTRA_LISTNAME, task);
+        startActivity(intent);
     }
 }

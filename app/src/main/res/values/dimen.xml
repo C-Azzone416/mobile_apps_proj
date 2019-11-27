@@ -5,4 +5,5 @@
     <dimen name="marginLg">25dp</dimen>
     <dimen name="loginMarginLarge">50dp</dimen>
     <dimen name="paddingMed">15dp</dimen>
+    <dimen name="textInputSize">22sp</dimen>
 </resources>

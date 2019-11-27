@@ -29,6 +29,12 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.items_screen_activity);
 
+        //the following two lines get the list name from main activity
+        Intent intent = getIntent();
+        String listName = intent.getStringExtra(MasterListScreen.EXTRA_LISTNAME);
+
+        //TODO:  SET SCREEN TITLE/APP BAR TITLE TO LISTNAME
+
         itemET = findViewById(R.id.item_edit_text);
         addBtn = findViewById(R.id.add_item_button);
         itemsList = findViewById(R.id.items_list);
@@ -63,12 +69,13 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         //TODO: FIX THESE
-        //items.remove(position);
-        //adapter.notifyDataSetChanged();
-        //FileHelper.writeData(items, this);
-        //Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+        //      items.remove(position);
+        //      adapter.notifyDataSetChanged();
+        //      FileHelper.writeData(items, this);
+        //      Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(ItemsScreen.this, Individual_Items.class);
+
         //TODO: Something here to move item name to top of next activity screen
         //      String message = itemsList.....
         startActivity(intent);

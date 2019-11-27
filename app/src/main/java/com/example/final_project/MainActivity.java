@@ -11,13 +11,14 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
 
     private MaterialButton launchBtn;
+    //TODO: CREATE SOME WAY TO PASS USER INFO TO MASTERLISTSCREEN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO:  NEW ONCLICK LISTENER FOR "SIGN UP" BUTTON.  
+        //TODO:  NEW ONCLICK LISTENER FOR "SIGN UP" BUTTON.
         launchBtn = findViewById(R.id.launchBtn);
         launchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openMasterListScreenActivity() {
         Intent intent = new Intent(this, MasterListScreen.class);
+
         startActivity(intent);
     }
 
-
+//TODO:  NEED TO HAVE DATABASE SAVE INDIVIDUAL ITEMS TO LISTS WHEN APP IS KILLED
 
 }
