@@ -28,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
        
     }
 
+    public void onClick(View view) {
+        openMasterListScreenActivity();
+    }
+
     private void openMasterListScreenActivity() {
         Intent intent = new Intent(this, MasterListScreen.class);
         startActivity(intent);
     }
 
 
-    public void onClick(View view) {
-        openMasterListScreenActivity();
-    }
+
 }
