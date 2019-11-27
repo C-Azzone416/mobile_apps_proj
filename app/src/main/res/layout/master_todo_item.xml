@@ -26,4 +26,6 @@
         android:layout_height="wrap_content"
         android:text="@string/delete"
         android:onClick="deleteTask"/>
+    <!--FIXME:  THIS BUTTON MAY BE BETTER AS AN END DRAWABLE TRASHCAN?  IT WOULD BE IN THE ENTIRE LINEAR LAYOUT -->
+    <!--FIXME:  MAY ALSO WANT TO HAVE THE ENTIRE LAYOUT BE CLICKABLE SO THAT THE ITEM WILL OPEN AND THEN WON'T NEED DETAIL BUTTON -->
 </LinearLayout>

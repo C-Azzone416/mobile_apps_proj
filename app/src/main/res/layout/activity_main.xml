@@ -1,24 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/launchBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Launch To Do Activity"
-        android:onClick="onClick">
+    <LinearLayout
+        android:id="@+id/login_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
-    </com.google.android.material.button.MaterialButton>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userName_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/loginMarginLarge"
+            android:layout_marginEnd="@dimen/loginMarginLarge"
+            android:layout_marginBottom="@dimen/marginMed"
+            android:paddingStart="@dimen/paddingMed"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:hint="@string/username_hint">
 
+        </com.google.android.material.textfield.TextInputEditText>
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/loginMarginLarge"
+            android:layout_marginEnd="@dimen/loginMarginLarge"
+            android:layout_marginBottom="@dimen/marginMed"
+            android:paddingStart="@dimen/paddingMed"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:hint="@string/password_hint">
 
+        </com.google.android.material.textfield.TextInputEditText>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/launchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/loginMarginLarge"
+            android:layout_marginEnd="@dimen/loginMarginLarge"
+            android:onClick="onClick"
+            android:text="@string/login">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/loginMarginLarge"
+            android:layout_marginEnd="@dimen/loginMarginLarge"
+
+            android:text="@string/signup">
+            <!--            TODO:  NEW ONCLICK  needs to link to a "create account", save info to database, etc-->
+        </com.google.android.material.button.MaterialButton>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

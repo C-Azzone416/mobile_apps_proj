@@ -17,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO:  NEW ONCLICK LISTENER FOR "SIGN UP" BUTTON.  
         launchBtn = findViewById(R.id.launchBtn);
         launchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO:  implement check for current user, password & email matches?
                 openMasterListScreenActivity();
             }
         });

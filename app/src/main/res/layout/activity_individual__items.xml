@@ -92,6 +92,9 @@
         app:hintEnabled="true"
         android:hint="NOTES:"/>
 
+    <!--TODO:  SHAYNE  CAN YOU ADD AN ADDRESS INPUT TEXT FIELD HERE SO USER CAN ENTER ADDRESS.-->
+    <!-- THEN WHEN USE CLICKS MAP IT WILL PULL UP THE ADDRESS-->
+
     <Button
         android:id="@+id/mapButton"
         android:layout_width="wrap_content"
