@@ -13,16 +13,23 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TaskContract.TaskEntry.TABLE +
-        " ( " + TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-        TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL);";
 
-        db.execSQL(createTable);
+        //FIXME:  WE NEED A SECONDARY TABLE TO HOLD THE LIST ITEMS AND LINK THEM TO THE LISTS
+        //   THIS WILL USE A FOREIGN KEY AND THREE COLUMN TABLE
+
+        String listTable = "CREATE TABLE " + TaskContract.ListTable.TABLE +
+        " ( " + TaskContract.ListTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+        TaskContract.ListTable.COL_LIST_TITLE + " TEXT NOT NULL);";
+
+        db.execSQL(listTable);
+
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.ListTable.TABLE);
         onCreate(db);
     }
 }

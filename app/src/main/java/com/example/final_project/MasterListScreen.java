@@ -2,7 +2,6 @@ package com.example.final_project;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AlertDialogLayout;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MasterListScreen extends AppCompatActivity {
 
@@ -71,8 +66,8 @@ public class MasterListScreen extends AppCompatActivity {
                                 //Log.d(TAG, "Task to add: " + task);
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
-                                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-                                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE, null, values,
+                                values.put(TaskContract.ListTable.COL_LIST_TITLE, task);
+                                db.insertWithOnConflict(TaskContract.ListTable.TABLE, null, values,
                                         SQLiteDatabase.CONFLICT_REPLACE);
                                 db.close();
                                 updateUI();
@@ -90,11 +85,11 @@ public class MasterListScreen extends AppCompatActivity {
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+        Cursor cursor = db.query(TaskContract.ListTable.TABLE,
+                new String[]{TaskContract.ListTable._ID, TaskContract.ListTable.COL_LIST_TITLE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            int idx = cursor.getColumnIndex(TaskContract.ListTable.COL_LIST_TITLE);
             taskList.add(cursor.getString(idx));
         }
         if (mAdapter == null) {
@@ -116,7 +111,7 @@ public class MasterListScreen extends AppCompatActivity {
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.delete(TaskContract.TaskEntry.TABLE, TaskContract.TaskEntry.COL_TASK_TITLE + " = ?",
+        db.delete(TaskContract.ListTable.TABLE, TaskContract.ListTable.COL_LIST_TITLE + " = ?",
                 new String[]{task});
         db.close();
         updateUI();
