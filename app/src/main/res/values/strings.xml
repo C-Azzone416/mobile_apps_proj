@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Final Project</string>
+    <string name="app_name">From To Do - To Done</string>
+    <string name="login">LOGIN</string>
+    <string name="logout">LOGOUT</string>
+    <string name="welcome">Welcome</string>
+    <string name="lists">Lists</string>
+    <string name="completed">Completed!</string>
+    <string name="delete">Delete?</string>
+    <string name="items">ITEMS</string>
+    <string name="username_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="add_item">ADD</string>
+    <string name="details">Details</string>
+    <string name="signup">SIGN UP</string>
 </resources>

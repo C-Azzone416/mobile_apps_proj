@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <LinearLayout
+        android:id="@+id/inputTextWithButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hGuideline1"
+        app:layout_constraintBottom_toTopOf="@id/hGuideline2"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@id/vGuideline3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/item_edit_text"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_item"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/items_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/inputTextWithButton"
+        app:layout_constraintBottom_toTopOf="@id/hGuideline3"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@id/vGuideline3">
+
+    </ListView>
+
+
+
+    <com.google.android.material.button.MaterialButton
+    android:id="@+id/bottom_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintVertical_bias="1.0"
+    app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
+    app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
+    app:layout_constraintRight_toLeftOf="@+id/vGuideline2"
+    app:layout_constraintTop_toBottomOf="@+id/hGuideline3"/>
+
+    <!--TODO:  IMPLEMENT BACK ONCLICK-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

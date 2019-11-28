@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Individual_Items">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+
+    <RadioGroup
+        android:id="@+id/urgencyRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hGuideline1"
+        app:layout_constraintBottom_toTopOf="@id/hGuideline2"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1">
+
+        <RadioButton
+            android:id="@+id/lowPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Low"/>
+        <RadioButton
+            android:id="@+id/normalPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Normal"/>
+        <RadioButton
+            android:id="@+id/urgentPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Urgent"/>
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/notesField"
+        android:layout_width="330dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/hGuideline2"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@id/vGuideline3"
+        app:hintEnabled="true"
+        android:hint="NOTES:"/>
+
+    <!--TODO:  SHAYNE  CAN YOU ADD AN ADDRESS INPUT TEXT FIELD HERE SO USER CAN ENTER ADDRESS.-->
+    <!-- THEN WHEN USE CLICKS MAP IT WILL PULL UP THE ADDRESS-->
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notesField"
+        app:layout_constraintLeft_toRightOf="@id/vGuideline1"
+        android:text="Map"
+        android:textColor="@color/colorWhite"
+        android:drawableTop="@drawable/ic_directions_black_24dp"
+        android:drawableTint="@color/colorWhite"
+        android:onClick="onMapBtnClick"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
+        app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
+        app:layout_constraintRight_toLeftOf="@+id/vGuideline2"
+        app:layout_constraintTop_toBottomOf="@+id/hGuideline3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
