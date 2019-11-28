@@ -48,6 +48,9 @@ public class MasterListScreen extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
+
+        //TODO:  I think it may be worth trying to add some options to the menu on each screen
+        //        for example this one has add a list and maybe add a "logout" on this page
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }

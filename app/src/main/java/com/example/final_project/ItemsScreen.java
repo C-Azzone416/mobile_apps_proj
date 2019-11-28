@@ -2,6 +2,7 @@ package com.example.final_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,14 +27,15 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.items_screen_activity);
 
         //the following two lines get the list name from main activity
         Intent intent = getIntent();
         String listName = intent.getStringExtra(MasterListScreen.EXTRA_LISTNAME);
 
-        //TODO:  SET SCREEN TITLE/APP BAR TITLE TO LISTNAME
+        super.onCreate(savedInstanceState);
+        setTitle(listName);  //this sets the top of the app to show the list name
+        setContentView(R.layout.items_screen_activity);
+
 
         itemET = findViewById(R.id.item_edit_text);
         addBtn = findViewById(R.id.add_item_button);
@@ -47,7 +49,14 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
         addBtn.setOnClickListener(this);
 
         itemsList.setOnItemClickListener(this);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        //TODO:  THIS MENU SHOULD HAVE A SWITCH THAT ALLOWS YOU TO ADD A NEW TASK TO THE LIST,  RENAME LIST, AND MAYBE GO BACK TO MAIN LISTS SCREEN?
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -75,6 +84,7 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
         //      Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(ItemsScreen.this, Individual_Items.class);
+
 
         //TODO: Something here to move item name to top of next activity screen
         //      String message = itemsList.....
