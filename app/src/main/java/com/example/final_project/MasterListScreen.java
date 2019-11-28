@@ -67,7 +67,7 @@ public class MasterListScreen extends AppCompatActivity {
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
                                 values.put(TaskContract.ListTable.COL_LIST_TITLE, task);
-                                db.insertWithOnConflict(TaskContract.ListTable.TABLE, null, values,
+                                db.insertWithOnConflict(TaskContract.ListTable.TABLE_NAME, null, values,
                                         SQLiteDatabase.CONFLICT_REPLACE);
                                 db.close();
                                 updateUI();
@@ -85,7 +85,7 @@ public class MasterListScreen extends AppCompatActivity {
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.ListTable.TABLE,
+        Cursor cursor = db.query(TaskContract.ListTable.TABLE_NAME,
                 new String[]{TaskContract.ListTable._ID, TaskContract.ListTable.COL_LIST_TITLE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
@@ -111,7 +111,7 @@ public class MasterListScreen extends AppCompatActivity {
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.delete(TaskContract.ListTable.TABLE, TaskContract.ListTable.COL_LIST_TITLE + " = ?",
+        db.delete(TaskContract.ListTable.TABLE_NAME, TaskContract.ListTable.COL_LIST_TITLE + " = ?",
                 new String[]{task});
         db.close();
         updateUI();

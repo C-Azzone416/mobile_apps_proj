@@ -9,14 +9,15 @@ public class TaskContract {
     //TODO:  NEED TO UPDATE VERSION OF DB
 
     public class ListTable implements BaseColumns{
-        public static final String TABLE = "primaryLists";
+        public static final String TABLE_NAME = "primaryLists";
         public static final String COL_LIST_TITLE = "listTitle";
     }
 
 
     public class TaskTable implements BaseColumns{
-        public static final String SUBTABLE = "individualTasks";
-        public static final String FOREIGN_ID = "primaryLists";
+        public static final String TABLE_NAME = "individualTasks";
+        public static final String TASK_ID = TABLE_NAME + _ID;
+        public static final String FOREIGN_ID = "primaryList";
         public static final String COL_TODO_ITEMS = "listItems";
 
     }

@@ -14,22 +14,27 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //FIXME:  WE NEED A SECONDARY TABLE TO HOLD THE LIST ITEMS AND LINK THEM TO THE LISTS
-        //   THIS WILL USE A FOREIGN KEY AND THREE COLUMN TABLE
+        //FIXME:  WE NEED A SECONDARY TABLE_NAME TO HOLD THE LIST ITEMS AND LINK THEM TO THE LISTS
+        //   THIS WILL USE A FOREIGN KEY AND THREE COLUMN TABLE_NAME
 
-        String listTable = "CREATE TABLE " + TaskContract.ListTable.TABLE +
+        String listTable = "CREATE TABLE " + TaskContract.ListTable.TABLE_NAME +
         " ( " + TaskContract.ListTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
         TaskContract.ListTable.COL_LIST_TITLE + " TEXT NOT NULL);";
 
         db.execSQL(listTable);
 
+        String taskTable = "CREATE TABLE " + TaskContract.TaskTable.TABLE_NAME +
+                " ( " + TaskContract.TaskTable.TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                TaskContract.TaskTable.FOREIGN_ID + " TEXT NOT NULL," +
+                TaskContract.TaskTable.COL_TODO_ITEMS + " TEXT NOT NULL);";
 
-
+        //FIXME:  need to link foreign_id to listTable does not auto increment!
+        db.execSQL(taskTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.ListTable.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.ListTable.TABLE_NAME);
         onCreate(db);
     }
 }
