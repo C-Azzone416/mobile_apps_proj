@@ -1,6 +1,8 @@
 package com.example.final_project;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.final_project.data.TaskContract;
+import com.example.final_project.data.TaskDbHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -24,6 +28,7 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
 
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
+    private TaskDbHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
         addBtn.setOnClickListener(this);
 
         itemsList.setOnItemClickListener(this);
+
+        //updateTaskList();
     }
 
     @Override
@@ -90,4 +97,17 @@ public class ItemsScreen extends AppCompatActivity implements View.OnClickListen
         //      String message = itemsList.....
         startActivity(intent);
     }
+
+    private void updateTaskList(){
+        ArrayList<String> listList = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(TaskContract.TaskTable.TABLE_NAME,
+            new String[]{TaskContract.TaskTable.TASK_ID,
+            TaskContract.TaskTable.FKEY_LIST_ID,
+            TaskContract.TaskTable.COL_TODO_ITEMS},
+                null, null, null, null, null);
+
+
+    }
+
 }

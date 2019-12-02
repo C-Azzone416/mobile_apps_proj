@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.final_project.data.TaskContract;
+import com.example.final_project.data.TaskDbHelper;
+
 import java.util.ArrayList;
 
 public class MasterListScreen extends AppCompatActivity {
@@ -80,25 +83,36 @@ public class MasterListScreen extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
+
     private void updateUI() {
-        ArrayList<String> taskList = new ArrayList<>();
+        // TODO: consider moving this to a new file, ListTableHelper, which makes nice Java
+        //  interface to the database. Methods like:
+        //      public ArrayList<String> GetLists()
+        //      public void createList(String listName)
+        //      public void deleteList(String listName)
+        //      public void renameList(String oldName, String newName)
+
+        // TODO: consider making a class, TaskList, that we can use to represent lists
+        //  rather than just passing around the list name as a string.
+        //      Q: how would you handle two lists with the same name?
+        //      Q: If you dont have list Id (only name) how will you query tasks Db?
+        ArrayList<String> listList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.ListTable.TABLE_NAME,
-                new String[]{TaskContract.ListTable._ID, TaskContract.ListTable.COL_LIST_TITLE},
+                new String[]{TaskContract.ListTable.LIST_ID, TaskContract.ListTable.COL_LIST_TITLE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(TaskContract.ListTable.COL_LIST_TITLE);
-            taskList.add(cursor.getString(idx));
+            listList.add(cursor.getString(idx));
         }
         if (mAdapter == null) {
             mAdapter = new ArrayAdapter<>(this, R.layout.master_todo_item,
-                    R.id.task_title, taskList);
+                    R.id.task_title, listList);
             mTaskListView.setAdapter(mAdapter);
         } else {
             mAdapter.clear();
-            mAdapter.addAll(taskList);
+            mAdapter.addAll(listList);
             mAdapter.notifyDataSetChanged();
         }
 
@@ -106,6 +120,8 @@ public class MasterListScreen extends AppCompatActivity {
         db.close();
     }
 
+
+    // TODO: Rename to deleteList
     public void deleteTask(View view){
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
@@ -117,13 +133,14 @@ public class MasterListScreen extends AppCompatActivity {
         updateUI();
     }
 
+    // TODO: remove this, just call openItemsScreenActivity?
     public void detailTask(View view){
         openItemsScreenActivity(view);
     }
 
     private void openItemsScreenActivity(View view) {
         View parent = (View) view.getParent();
-        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
+        TextView taskTextView = parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
 
         Intent intent = new Intent(this, ItemsScreen.class);

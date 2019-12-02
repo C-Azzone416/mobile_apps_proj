@@ -24,7 +24,6 @@ public class Individual_Items extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     public void onMapBtnClick(View view) {
         String place = address;
         String placeUri = String.format("geo:0,0?q=(%s)", place);
