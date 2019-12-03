@@ -2,7 +2,7 @@
 
 
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/inputTextWithButton"
+    android:id="@+id/todo_list_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/marginLg"
@@ -10,12 +10,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/task_title"
+        android:id="@+id/list_title"
         android:layout_width="339dp"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/marginMed"
         android:layout_marginBottom="@dimen/marginSmall"
-        android:onClick="openItemsScreenActivity"
+        android:onClick="detailTask"
         android:textSize="@dimen/textInputSize"
         />
 

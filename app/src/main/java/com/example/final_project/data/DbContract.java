@@ -2,11 +2,11 @@ package com.example.final_project.data;
 
 import android.provider.BaseColumns;
 
-public class TaskContract {
+public class DbContract {
 
     public static final String DB_NAME = "com.example.final_project";
-    public static final int DB_VERSION = 1;
-    //TODO:  NEED TO UPDATE VERSION OF DB
+    public static final int DB_VERSION = 3;
+    //TODO:  NEED TO UPDATE VERSION OF DB AFTER CHANGES
 
     public class ListTable implements BaseColumns{
         public static final String TABLE_NAME = "lists";
@@ -23,7 +23,6 @@ public class TaskContract {
         public static final String COL_IS_PRIORITY = "is_priority";
         public static final String COL_TODO_ADDRESS = "todo_address";
         public static final String COL_TODO_NOTES = "todo_notes";
-
     }
 
 }

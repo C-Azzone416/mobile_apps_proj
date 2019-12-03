@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Individual_Items">
+    tools:context=".ItemDetailScreen">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vGuideline1"
@@ -108,9 +108,11 @@
         android:onClick="onMapBtnClick"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bottom_button"
+        android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="CANCEL"
+        android:onClick="onCancel"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintBottom_toTopOf="@+id/hGuideline4"

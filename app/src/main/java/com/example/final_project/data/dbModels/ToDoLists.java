@@ -1,10 +1,11 @@
 package com.example.final_project.data.dbModels;
 
-public class Lists {
+//creates List object
+public class ToDoLists {
     private Integer mListId;
     private String mListTitle;
 
-    public Lists(Integer num, String listName){
+    public ToDoLists(Integer num, String listName){
         mListId = num;
         mListTitle = listName;
     }
@@ -13,7 +14,11 @@ public class Lists {
         return mListId;
     }
 
-    public String getmListTitle(){
+    public String getListTitle(){
+        return mListTitle;
+    }
+
+    public String toString(){
         return mListTitle;
     }
 

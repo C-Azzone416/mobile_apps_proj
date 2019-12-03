@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class Individual_Items extends AppCompatActivity {
+public class ItemDetailScreen extends AppCompatActivity {
 
     String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_individual__items);
+        setContentView(R.layout.activity_item_detail_screen);
     }
 
     @Override
@@ -30,4 +30,10 @@ public class Individual_Items extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(placeUri));
         startActivity(intent);
     }
+
+    public void onCancel(View view){
+        Intent intent = new Intent(this, TasksListScreen.class);
+        startActivity(intent);
+    }
+
 }

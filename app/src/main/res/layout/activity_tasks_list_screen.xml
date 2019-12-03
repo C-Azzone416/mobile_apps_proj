@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TasksListScreen">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -77,6 +77,7 @@
             android:id="@+id/add_item_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addTaskToList"
             android:text="@string/add_item"/>
     </LinearLayout>
 
@@ -94,11 +95,13 @@
 
 
     <com.google.android.material.button.MaterialButton
-    android:id="@+id/bottom_button"
+    android:id="@+id/back_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintVertical_bias="1.0"
+    android:text="DONE"
+    android:onClick="OnCancelButton"
     app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
     app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
     app:layout_constraintRight_toLeftOf="@+id/vGuideline2"
