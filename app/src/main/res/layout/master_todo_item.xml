@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/marginMed"
         android:layout_marginBottom="@dimen/marginSmall"
-        android:onClick="detailTask"
+        android:onClick="openItemsScreenActivity"
         android:textSize="@dimen/textInputSize"
         />
 
@@ -39,7 +39,7 @@
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:text="@string/delete"-->
-<!--        android:onClick="deleteTask"/>-->
+<!--        android:onClick="deleteList"/>-->
 
     <!--FIXME: DONE UNLESS WE WANT TO GO BACK. THIS BUTTON MAY BE BETTER AS AN END DRAWABLE TRASHCAN?  IT WOULD BE IN THE ENTIRE LINEAR LAYOUT -->
     <!--FIXME:  MAY ALSO WANT TO HAVE THE ENTIRE LAYOUT BE CLICKABLE SO THAT THE ITEM WILL OPEN AND THEN WON'T NEED DETAIL BUTTON -->

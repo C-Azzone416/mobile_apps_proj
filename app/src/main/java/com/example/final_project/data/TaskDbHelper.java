@@ -22,9 +22,6 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //FIXME:  WE NEED A SECONDARY TABLE_NAME TO HOLD THE LIST ITEMS AND LINK THEM TO THE LISTS
-        //   THIS WILL USE A FOREIGN KEY AND THREE COLUMN TABLE_NAME
-
         String listTablePattern = "CREATE TABLE %s (%s, %s);";
         String listTableCreateStatement = String.format(listTablePattern,
                 // TableName
@@ -65,7 +62,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TaskContract.ListTable.TABLE_NAME);
-        // TODO - handle upgrade case for task table
+        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskTable.TABLE_NAME);
+
         onCreate(db);
     }
 

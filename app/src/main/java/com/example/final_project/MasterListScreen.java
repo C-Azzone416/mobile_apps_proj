@@ -121,8 +121,7 @@ public class MasterListScreen extends AppCompatActivity {
     }
 
 
-    // TODO: Rename to deleteList
-    public void deleteTask(View view){
+    public void deleteList(View view){
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
@@ -131,11 +130,6 @@ public class MasterListScreen extends AppCompatActivity {
                 new String[]{task});
         db.close();
         updateUI();
-    }
-
-    // TODO: remove this, just call openItemsScreenActivity?
-    public void detailTask(View view){
-        openItemsScreenActivity(view);
     }
 
     private void openItemsScreenActivity(View view) {
