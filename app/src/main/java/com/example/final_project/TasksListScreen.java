@@ -21,11 +21,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class TasksListScreen extends AppCompatActivity implements View.OnClickListener{
+public class TasksListScreen extends AppCompatActivity {
 
     private TextInputEditText itemET;
-    private MaterialButton addBtn;
-    private MaterialButton backBtn;
     private ListView itemsList;
     private ArrayAdapter<Tasks> adapter;
     private DbHelper databaseHelper;
@@ -54,25 +52,26 @@ public class TasksListScreen extends AppCompatActivity implements View.OnClickLi
 
         mTaskHelper = new TaskTableHelper(this);
         itemET = findViewById(R.id.item_edit_text);
-        addBtn = findViewById(R.id.add_item_button);
+        MaterialButton addBtn = findViewById(R.id.add_item_button);
         itemsList = findViewById(R.id.items_list);
         mTaskNameView = findViewById(R.id.task_title);
-        backBtn = findViewById(R.id.back_button);
+        MaterialButton backBtn = findViewById(R.id.back_button);
 
-        backBtn.setOnClickListener(this);
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnCancelButton(view);
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTaskToList(view);
+            }
+        });
         updateTaskUI();
-
-       // items = FileHelper.readData(this);
-
-//        adapter = new ArrayAdapter<Tasks>(this, android.R.layout.select_dialog_multichoice, itemsList);
-//        itemsList.setAdapter(adapter);
-
-  //      addBtn.setOnClickListener(this);
-//        itemsList.setOnClickListener(this);
-//        mTaskNameView.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -88,8 +87,6 @@ public class TasksListScreen extends AppCompatActivity implements View.OnClickLi
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     private void addTaskToList(View view){
         String itemEntered = itemET.getText().toString();
@@ -161,17 +158,4 @@ public class TasksListScreen extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.back_button:
-                OnCancelButton(v);
-                break;
-            case R.id.add_item_button:
-                addTaskToList(v);
-                break;
-            default:
-                break;
-        }
-    }
 }

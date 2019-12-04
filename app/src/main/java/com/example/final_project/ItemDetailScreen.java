@@ -10,19 +10,31 @@ import android.view.View;
 
 public class ItemDetailScreen extends AppCompatActivity {
 
-    String address;
+    String address = "";
+
+    public static final String EXTRA_TASK_NAME = "task name";
+    public static final String EXTRA_TASK_ADDRESS = "task address";
+    public static final String EXTRA_TASK_NOTE = "task note";
+    public static final String EXTRA_TASK_PRIORITY = "task priority";
+    public static final String EXTRA_TASK_ID = "task id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
+        String taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
+
+        Integer taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
         super.onCreate(savedInstanceState);
+        setTitle(taskName);
         setContentView(R.layout.activity_item_detail_screen);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     public void onMapBtnClick(View view) {
         String place = address;
