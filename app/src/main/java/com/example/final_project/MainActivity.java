@@ -36,11 +36,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openMasterListScreenActivity() {
-        Intent intent = new Intent(this, MasterListScreen.class);
+        Intent intent = new Intent(this, ToDoListsScreen.class);
 
         startActivity(intent);
     }
 
-//TODO:  NEED TO HAVE DATABASE SAVE INDIVIDUAL ITEMS TO LISTS WHEN APP IS KILLED
 
 }
