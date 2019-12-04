@@ -128,13 +128,10 @@ public class TasksListScreen extends AppCompatActivity {
         String note = task.getTaskNote();
         intent.putExtra(EXTRA_TASK_NOTE, note);
 
-
-        //TODO: Something here to move item name to top of next activity screen
-        //      String message = itemsList.....
         startActivity(intent);
     }
 
-    //TODO:  THIS SHOULD LOOK SIMILAR TO UPDATEUI() IN MASTER LIST SCREEN BUT FOR TASKS
+
     private void updateTaskUI(){
         ArrayList<Tasks> tasksList = mTaskHelper.getTasks();
         if(adapter == null){

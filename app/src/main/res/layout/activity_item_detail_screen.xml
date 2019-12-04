@@ -74,6 +74,7 @@
             android:id="@+id/normalPriority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Normal"/>
         <RadioButton
             android:id="@+id/urgentPriority"
