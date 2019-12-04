@@ -30,12 +30,6 @@ public class ItemDetailScreen extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail_screen);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
     public void onMapBtnClick(View view) {
         String place = address;
         String placeUri = String.format("geo:0,0?q=(%s)", place);

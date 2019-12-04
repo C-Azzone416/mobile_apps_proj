@@ -1,6 +1,5 @@
 package com.example.final_project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.final_project.data.DbHelper;
@@ -26,7 +24,6 @@ public class TasksListScreen extends AppCompatActivity {
     private TextInputEditText itemET;
     private ListView itemsList;
     private ArrayAdapter<Tasks> adapter;
-    private DbHelper databaseHelper;
     private TaskTableHelper mTaskHelper;
     private TextView mTaskNameView;
 

@@ -122,10 +122,6 @@ public class ToDoListsScreen extends AppCompatActivity {
        ArrayList<ToDoLists>todoListsList = mListTableHelper.getLists();
        Integer position = mTaskListView.getPositionForView(view);
 
-//     View parent = (View) view.getParent();
-//     TextView listNameTextView = parent.findViewById(R.id.list_title);
-//     String listName = String.valueOf(listNameTextView.getText());
-
         ToDoLists list = todoListsList.get(position);
         Integer listId = list.getListId();
         String listName = list.getListTitle();
