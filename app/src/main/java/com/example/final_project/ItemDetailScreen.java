@@ -9,29 +9,43 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class ItemDetailScreen extends AppCompatActivity {
 
-    String address = "";
+    private String address;
+    private String taskName;
+    private String taskNote;
+    private Integer taskId;
+    private Integer listId;
+    private Integer priority;
+    private TasksListScreen previousScreen;
 
-    public static final String EXTRA_TASK_NAME = "task name";
-    public static final String EXTRA_TASK_ADDRESS = "task address";
-    public static final String EXTRA_TASK_NOTE = "task note";
-    public static final String EXTRA_TASK_PRIORITY = "task priority";
-    public static final String EXTRA_TASK_ID = "task id";
+    private TextInputEditText noteField;
+
+    public static final String EXTRA_LIST_ID = "list id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
-        String taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
-
-        Integer taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
-        Integer priority = intent.getIntExtra(TasksListScreen.EXTRA_TASK_PRIORITY, -1);
+        taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
+        address = intent.getStringExtra(TasksListScreen.EXTRA_TASK_ADDRESS);
+        taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
+        priority = intent.getIntExtra(TasksListScreen.EXTRA_TASK_PRIORITY, -1);
+        taskNote = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NOTE);
+        listId = intent.getIntExtra(TasksListScreen.EXTRA_LIST_ID, -1);
 
         super.onCreate(savedInstanceState);
         setTitle(taskName);
         setContentView(R.layout.activity_item_detail_screen);
         setPriority(priority);
+
+        noteField = findViewById(R.id.notesField);
+        //FIXME:  TEST INPUT
+        taskNote = "My dogs rock";
+        noteField.setText(taskNote);
+
     }
 
     public void setPriority(Integer priority){
@@ -51,6 +65,9 @@ public class ItemDetailScreen extends AppCompatActivity {
         }
     }
 
+    public void setAddress(String address){
+        //TODO: ADD ADDRESS FIELD SO CAN DISPLAY ADDRESS
+    }
 
     public void onMapBtnClick(View view) {
         String place = address;

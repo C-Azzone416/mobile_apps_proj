@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 public class DbContract {
 
     public static final String DB_NAME = "com.example.final_project";
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
     //TODO:  NEED TO UPDATE VERSION OF DB AFTER CHANGES
 
     public class ListTable implements BaseColumns{

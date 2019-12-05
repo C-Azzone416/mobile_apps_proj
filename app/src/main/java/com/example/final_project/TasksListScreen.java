@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.final_project.data.DbHelper;
 import com.example.final_project.data.TaskTableHelper;
 import com.example.final_project.data.dbModels.Tasks;
 import com.google.android.material.button.MaterialButton;
@@ -26,22 +25,30 @@ public class TasksListScreen extends AppCompatActivity {
     private ArrayAdapter<Tasks> adapter;
     private TaskTableHelper mTaskHelper;
     private TextView mTaskNameView;
+    private Integer listId;
+    private String saveListName;
+    private String listName;
+    private Integer saveListId;
+    private static Integer tempId;
+    private static String tempName;
 
     public static final String EXTRA_TASK_NAME = "task name";
     public static final String EXTRA_TASK_ADDRESS = "task address";
     public static final String EXTRA_TASK_NOTE = "task note";
     public static final String EXTRA_TASK_PRIORITY = "task priority";
     public static final String EXTRA_TASK_ID = "task id";
-
+    public static final String EXTRA_LIST_ID = "list id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         //the following two lines get the list name from main activity
         Intent intent = getIntent();
-        String listName = intent.getStringExtra(ToDoListsScreen.EXTRA_LISTNAME);
-
-        Integer listId = intent.getIntExtra(ToDoListsScreen.EXTRA_LIST_ID, -1);
+        listName = intent.getStringExtra(ToDoListsScreen.EXTRA_LISTNAME);
+        listId = intent.getIntExtra(ToDoListsScreen.EXTRA_LIST_ID, -1);
+        saveListId = listId;
+        saveListName = listName;
 
         super.onCreate(savedInstanceState);
         setTitle(listName);  //this sets the top of the app to show the list name
@@ -53,7 +60,6 @@ public class TasksListScreen extends AppCompatActivity {
         itemsList = findViewById(R.id.items_list);
         mTaskNameView = findViewById(R.id.task_title);
         MaterialButton backBtn = findViewById(R.id.back_button);
-
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +78,6 @@ public class TasksListScreen extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        updateTaskUI();
-        super.onResume();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
         //TODO:  THIS MENU SHOULD HAVE A SWITCH THAT ALLOWS YOU TO ADD A NEW TASK TO THE LIST,  RENAME LIST, AND MAYBE GO BACK TO MAIN LISTS SCREEN?
@@ -87,11 +87,11 @@ public class TasksListScreen extends AppCompatActivity {
 
     private void addTaskToList(View view){
         String itemEntered = itemET.getText().toString();
-        mTaskHelper.createTask(itemEntered);
+        mTaskHelper.createTask(itemEntered, listId);
         itemET.setText("");
         updateTaskUI();
 
-        //TODO:   FileHelper.writeData(items, this);
+        //TODO:  DON'T NEED THIS AT THIS TIME  FileHelper.writeData(items, this);
 
         Toast.makeText(this, "Item Added", Toast.LENGTH_SHORT).show();
     }
@@ -108,7 +108,7 @@ public class TasksListScreen extends AppCompatActivity {
         //      Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
 
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks();
+        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
         Integer position = itemsList.getPositionForView(view);
         Tasks task = tasksList.get(position);
 
@@ -122,6 +122,9 @@ public class TasksListScreen extends AppCompatActivity {
         Integer taskId = task.getTaskId();
         intent.putExtra(EXTRA_TASK_ID, taskId);
 
+       // Integer listId = task.getTaskId();
+        intent.putExtra(EXTRA_LIST_ID, listId);
+
         String address = task.getTaskAddress();
         intent.putExtra(EXTRA_TASK_ADDRESS, address);
 
@@ -132,8 +135,40 @@ public class TasksListScreen extends AppCompatActivity {
     }
 
 
-    private void updateTaskUI(){
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks();
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        tempId = saveListId;
+        tempName = saveListName;
+    }
+
+    //
+//    @Override
+//    protected void onRestart() {
+//        tempId = saveListId;
+//        super.onRestart();
+//    }
+
+
+    //TODO:  WORK ON LIFECYCLE CHANGES
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(saveListId > 0) {
+            listId = saveListId;
+            listName = saveListName;
+        }
+        else{
+            listId = tempId;
+            listName = tempName;
+        }
+        setTitle(listName);
+        updateTaskUI();
+    }
+
+      private void updateTaskUI(){
+        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
         if(adapter == null){
             adapter = new ArrayAdapter<>(this, R.layout.master_task_item, R.id.task_title, tasksList);
             itemsList.setAdapter(adapter);
