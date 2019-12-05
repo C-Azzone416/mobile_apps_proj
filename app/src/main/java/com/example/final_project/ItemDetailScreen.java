@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.example.final_project.data.TaskTableHelper;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ItemDetailScreen extends AppCompatActivity {
@@ -19,7 +20,7 @@ public class ItemDetailScreen extends AppCompatActivity {
     private Integer taskId;
     private Integer listId;
     private Integer priority;
-    private TasksListScreen previousScreen;
+
 
     private TextInputEditText noteField;
 
@@ -45,6 +46,8 @@ public class ItemDetailScreen extends AppCompatActivity {
         //FIXME:  TEST INPUT
         taskNote = "My dogs rock";
         noteField.setText(taskNote);
+
+
 
     }
 
