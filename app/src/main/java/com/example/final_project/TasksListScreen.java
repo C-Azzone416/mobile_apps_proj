@@ -24,11 +24,8 @@ public class TasksListScreen extends AppCompatActivity {
     private ListView itemsList;
     private ArrayAdapter<Tasks> adapter;
     private TaskTableHelper mTaskHelper;
-    private TextView mTaskNameView;
     private Integer listId;
-    private String saveListName;
     private String listName;
-    private Integer saveListId;
     private static Integer tempId;
     private static String tempName;
 
@@ -47,8 +44,6 @@ public class TasksListScreen extends AppCompatActivity {
         Intent intent = getIntent();
         listName = intent.getStringExtra(ToDoListsScreen.EXTRA_LISTNAME);
         listId = intent.getIntExtra(ToDoListsScreen.EXTRA_LIST_ID, -1);
-        saveListId = listId;
-        saveListName = listName;
 
         super.onCreate(savedInstanceState);
         setTitle(listName);  //this sets the top of the app to show the list name
@@ -58,7 +53,6 @@ public class TasksListScreen extends AppCompatActivity {
         itemET = findViewById(R.id.item_edit_text);
         MaterialButton addBtn = findViewById(R.id.add_item_button);
         itemsList = findViewById(R.id.items_list);
-        mTaskNameView = findViewById(R.id.task_title);
         MaterialButton backBtn = findViewById(R.id.back_button);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +68,25 @@ public class TasksListScreen extends AppCompatActivity {
                 addTaskToList(view);
             }
         });
+        updateTaskUI();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        tempId = listId;
+        tempName = listName;
+    }
+
+    //TODO:  WORK ON LIFECYCLE CHANGES
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(listId < 0) {
+            listId = tempId;
+            listName = tempName;
+            setTitle(listName);
+        }
         updateTaskUI();
     }
 
@@ -136,36 +149,7 @@ public class TasksListScreen extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        tempId = saveListId;
-        tempName = saveListName;
-    }
 
-    //
-//    @Override
-//    protected void onRestart() {
-//        tempId = saveListId;
-//        super.onRestart();
-//    }
-
-
-    //TODO:  WORK ON LIFECYCLE CHANGES
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(saveListId > 0) {
-            listId = saveListId;
-            listName = saveListName;
-        }
-        else{
-            listId = tempId;
-            listName = tempName;
-        }
-        setTitle(listName);
-        updateTaskUI();
-    }
 
       private void updateTaskUI(){
         ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
