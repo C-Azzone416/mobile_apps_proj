@@ -1,6 +1,5 @@
 package com.example.final_project;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.final_project.data.DbHelper;
 import com.example.final_project.data.TaskTableHelper;
 import com.example.final_project.data.dbModels.Tasks;
 import com.google.android.material.button.MaterialButton;
@@ -26,25 +23,27 @@ public class TasksListScreen extends AppCompatActivity {
     private TextInputEditText itemET;
     private ListView itemsList;
     private ArrayAdapter<Tasks> adapter;
-    private DbHelper databaseHelper;
     private TaskTableHelper mTaskHelper;
-    private TextView mTaskNameView;
+    private Integer listId;
+    private String listName;
+    private static Integer tempId;
+    private static String tempName;
 
     public static final String EXTRA_TASK_NAME = "task name";
     public static final String EXTRA_TASK_ADDRESS = "task address";
     public static final String EXTRA_TASK_NOTE = "task note";
     public static final String EXTRA_TASK_PRIORITY = "task priority";
     public static final String EXTRA_TASK_ID = "task id";
-
+    public static final String EXTRA_LIST_ID = "list id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         //the following two lines get the list name from main activity
         Intent intent = getIntent();
-        String listName = intent.getStringExtra(ToDoListsScreen.EXTRA_LISTNAME);
-
-        Integer listId = intent.getIntExtra(ToDoListsScreen.EXTRA_LIST_ID, -1);
+        listName = intent.getStringExtra(ToDoListsScreen.EXTRA_LISTNAME);
+        listId = intent.getIntExtra(ToDoListsScreen.EXTRA_LIST_ID, -1);
 
         super.onCreate(savedInstanceState);
         setTitle(listName);  //this sets the top of the app to show the list name
@@ -54,9 +53,7 @@ public class TasksListScreen extends AppCompatActivity {
         itemET = findViewById(R.id.item_edit_text);
         MaterialButton addBtn = findViewById(R.id.add_item_button);
         itemsList = findViewById(R.id.items_list);
-        mTaskNameView = findViewById(R.id.task_title);
         MaterialButton backBtn = findViewById(R.id.back_button);
-
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +72,22 @@ public class TasksListScreen extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        tempId = listId;
+        tempName = listName;
+    }
+
+    //TODO:  WORK ON LIFECYCLE CHANGES
+    @Override
     protected void onResume() {
-        updateTaskUI();
         super.onResume();
+        if(listId < 0) {
+            listId = tempId;
+            listName = tempName;
+            setTitle(listName);
+        }
+        updateTaskUI();
     }
 
     @Override
@@ -90,11 +100,11 @@ public class TasksListScreen extends AppCompatActivity {
 
     private void addTaskToList(View view){
         String itemEntered = itemET.getText().toString();
-        mTaskHelper.createTask(itemEntered);
+        mTaskHelper.createTask(itemEntered, listId);
         itemET.setText("");
         updateTaskUI();
 
-        //TODO:   FileHelper.writeData(items, this);
+        //TODO:  DON'T NEED THIS AT THIS TIME  FileHelper.writeData(items, this);
 
         Toast.makeText(this, "Item Added", Toast.LENGTH_SHORT).show();
     }
@@ -111,7 +121,7 @@ public class TasksListScreen extends AppCompatActivity {
         //      Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
 
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks();
+        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
         Integer position = itemsList.getPositionForView(view);
         Tasks task = tasksList.get(position);
 
@@ -125,21 +135,24 @@ public class TasksListScreen extends AppCompatActivity {
         Integer taskId = task.getTaskId();
         intent.putExtra(EXTRA_TASK_ID, taskId);
 
+       // Integer listId = task.getTaskId();
+        intent.putExtra(EXTRA_LIST_ID, listId);
+
         String address = task.getTaskAddress();
         intent.putExtra(EXTRA_TASK_ADDRESS, address);
 
         String note = task.getTaskNote();
         intent.putExtra(EXTRA_TASK_NOTE, note);
 
-
-        //TODO: Something here to move item name to top of next activity screen
-        //      String message = itemsList.....
         startActivity(intent);
     }
 
-    //TODO:  THIS SHOULD LOOK SIMILAR TO UPDATEUI() IN MASTER LIST SCREEN BUT FOR TASKS
-    private void updateTaskUI(){
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks();
+
+
+
+
+      private void updateTaskUI(){
+        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
         if(adapter == null){
             adapter = new ArrayAdapter<>(this, R.layout.master_task_item, R.id.task_title, tasksList);
             itemsList.setAdapter(adapter);

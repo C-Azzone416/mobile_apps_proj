@@ -7,34 +7,70 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.RadioGroup;
+
+import com.example.final_project.data.TaskTableHelper;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class ItemDetailScreen extends AppCompatActivity {
 
-    String address = "";
+    private String address;
+    private String taskName;
+    private String taskNote;
+    private Integer taskId;
+    private Integer listId;
+    private Integer priority;
 
-    public static final String EXTRA_TASK_NAME = "task name";
-    public static final String EXTRA_TASK_ADDRESS = "task address";
-    public static final String EXTRA_TASK_NOTE = "task note";
-    public static final String EXTRA_TASK_PRIORITY = "task priority";
-    public static final String EXTRA_TASK_ID = "task id";
+
+    private TextInputEditText noteField;
+
+    public static final String EXTRA_LIST_ID = "list id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
-        String taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
+        taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
+        address = intent.getStringExtra(TasksListScreen.EXTRA_TASK_ADDRESS);
+        taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
+        priority = intent.getIntExtra(TasksListScreen.EXTRA_TASK_PRIORITY, -1);
+        taskNote = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NOTE);
+        listId = intent.getIntExtra(TasksListScreen.EXTRA_LIST_ID, -1);
 
-        Integer taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
         super.onCreate(savedInstanceState);
         setTitle(taskName);
         setContentView(R.layout.activity_item_detail_screen);
+        setPriority(priority);
+
+        noteField = findViewById(R.id.notesField);
+        //FIXME:  TEST INPUT
+        taskNote = "My dogs rock";
+        noteField.setText(taskNote);
+
+
+
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    public void setPriority(Integer priority){
+        RadioGroup group = findViewById(R.id.urgencyRadioGroup);
+        switch (priority){
+            case 0:
+                group.check(R.id.lowPriority);
+                break;
+            case 1:
+                group.check(R.id.normalPriority);
+                break;
+            case 2:
+                group.check(R.id.urgentPriority);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setAddress(String address){
+        //TODO: ADD ADDRESS FIELD SO CAN DISPLAY ADDRESS
+    }
 
     public void onMapBtnClick(View view) {
         String place = address;

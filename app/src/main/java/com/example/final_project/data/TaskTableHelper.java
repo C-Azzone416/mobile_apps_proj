@@ -18,12 +18,7 @@ public class TaskTableHelper {
         mHelper = new DbHelper(context);
     }
 
-    public void createTask(String taskName){
-
-        //TODO:  THIS NEEDS TO ALSO PASS THE FOREIGN KEY?
-        //       what about other values?
-        //       THIS CREATES A NEW ROW FOR THE NEW TASK
-        //       MUST MAKE SURE IT GETS THE CORRECT FOREIGN KEY OR WONT LINK TO CORRECT LIST
+    public void createTask(String taskName, Integer listId){
 
         SQLiteDatabase db = mHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -32,30 +27,44 @@ public class TaskTableHelper {
         values.put(DbContract.TaskTable.COL_TODO_NOTES, "");
         values.put(DbContract.TaskTable.COL_IS_CHECKED, 0);
         values.put(DbContract.TaskTable.COL_IS_PRIORITY, 0);
+        values.put(DbContract.TaskTable.FKEY_LIST_ID, listId);
         db.insertWithOnConflict(DbContract.TaskTable.TABLE_NAME, null, values,
                 SQLiteDatabase.CONFLICT_REPLACE);
         db.close();
     }
 
-
-    //TODO: FINISH STUB  fix fkey args
-    public ArrayList<Tasks> getTasks(){
+    public ArrayList<Tasks> getTasks(Integer listId){
         ArrayList<Tasks> mTasksArray = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(DbContract.TaskTable.TABLE_NAME,
-                new String[]{DbContract.TaskTable.TASK_ID,
-                        DbContract.TaskTable.FKEY_LIST_ID,
-                        DbContract.TaskTable.COL_TODO_ITEMS,
-                        DbContract.TaskTable.COL_IS_CHECKED,
-                        DbContract.TaskTable.COL_IS_PRIORITY,
-                        DbContract.TaskTable.COL_TODO_ADDRESS,
-                        DbContract.TaskTable.COL_TODO_NOTES,},
-                null, null, null, null, null);
-        while(cursor.moveToNext()){
 
-            //FIXME:  MAY NEED TO MOVE SOME OF THE ABOVE CODE TO A NEW FILE FOR TASK DETAIL.
-            //          OR JUST BUNDLE HERE AND PASS THE WHOLE TASK AS INTENT?
-            int idx = cursor.getColumnIndex(DbContract.TaskTable.TASK_ID);
+        //better way
+        String selectQuery = "SELECT * FROM " + DbContract.TaskTable.TABLE_NAME + " WHERE " +
+                DbContract.TaskTable.FKEY_LIST_ID + " = " + listId;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //commented out code below works but is naive method
+
+//        Cursor cursor = db.query(DbContract.TaskTable.TABLE_NAME,
+//                new String[]{DbContract.TaskTable.TASK_ID,
+//                        DbContract.TaskTable.FKEY_LIST_ID,
+//                        DbContract.TaskTable.COL_TODO_ITEMS,
+//                        DbContract.TaskTable.COL_IS_CHECKED,
+//                        DbContract.TaskTable.COL_IS_PRIORITY,
+//                        DbContract.TaskTable.COL_TODO_ADDRESS,
+//                        DbContract.TaskTable.COL_TODO_NOTES,},
+//                null, null, null, null, null);
+//        while(cursor.moveToNext()){
+//            int idx = cursor.getColumnIndex(DbContract.TaskTable.FKEY_LIST_ID);
+//            Integer getListId = cursor.getInt(idx);
+//            if(getListId != listId){
+//                cursor.moveToNext();
+//            }
+//            else{
+
+            while (cursor.moveToNext()) {
+
+            Integer idx = cursor.getColumnIndex(DbContract.TaskTable.TASK_ID);
             Integer taskId = cursor.getInt(idx);
 
             idx = cursor.getColumnIndex(DbContract.TaskTable.COL_IS_PRIORITY);
@@ -65,15 +74,15 @@ public class TaskTableHelper {
             String taskName = cursor.getString(idx);
 
             mTasksArray.add(new Tasks(taskId, taskName, isPriority));
-        }
+            }
+
         cursor.close();
         db.close();
 
         return mTasksArray;
     }
 
-
-
+    //TODO:  NEED TO HAVE A WAY TO UPDATE DB INFO
 
 
 }
