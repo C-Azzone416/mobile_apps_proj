@@ -34,6 +34,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL(listTableCreateStatement);
 
+
+
         // Pattern string to create a table with 7 columns and a foreign key
         String taskTablePattern = "CREATE TABLE %s (%s, %s, %s, %s, %s, %s, %s, %s);";
         String taskTableCreateStatement = String.format(taskTablePattern,
