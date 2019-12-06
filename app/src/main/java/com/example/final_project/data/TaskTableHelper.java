@@ -43,25 +43,6 @@ public class TaskTableHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        //commented out code below works but is naive method
-
-//        Cursor cursor = db.query(DbContract.TaskTable.TABLE_NAME,
-//                new String[]{DbContract.TaskTable.TASK_ID,
-//                        DbContract.TaskTable.FKEY_LIST_ID,
-//                        DbContract.TaskTable.COL_TODO_ITEMS,
-//                        DbContract.TaskTable.COL_IS_CHECKED,
-//                        DbContract.TaskTable.COL_IS_PRIORITY,
-//                        DbContract.TaskTable.COL_TODO_ADDRESS,
-//                        DbContract.TaskTable.COL_TODO_NOTES,},
-//                null, null, null, null, null);
-//        while(cursor.moveToNext()){
-//            int idx = cursor.getColumnIndex(DbContract.TaskTable.FKEY_LIST_ID);
-//            Integer getListId = cursor.getInt(idx);
-//            if(getListId != listId){
-//                cursor.moveToNext();
-//            }
-//            else{
-
             while (cursor.moveToNext()) {
 
             Integer idx = cursor.getColumnIndex(DbContract.TaskTable.TASK_ID);
@@ -70,10 +51,22 @@ public class TaskTableHelper {
             idx = cursor.getColumnIndex(DbContract.TaskTable.COL_IS_PRIORITY);
             Integer isPriority = cursor.getInt(idx);
 
+            idx = cursor.getColumnIndex(DbContract.TaskTable.COL_IS_CHECKED);
+            Integer isChecked = cursor.getInt(idx);
+
+            idx = cursor.getColumnIndex(DbContract.TaskTable.FKEY_LIST_ID);
+            Integer fKey = cursor.getInt(idx);
+
             idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_ITEMS);
             String taskName = cursor.getString(idx);
 
-            mTasksArray.add(new Tasks(taskId, taskName, isPriority));
+            idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_NOTES);
+            String taskNote = cursor.getString(idx);
+
+            idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_ADDRESS);
+            String taskAddress = cursor.getString(idx);
+
+            mTasksArray.add(new Tasks(taskId, taskName, fKey, taskNote, taskAddress, isChecked, isPriority));
             }
 
         cursor.close();
@@ -84,5 +77,27 @@ public class TaskTableHelper {
 
     //TODO:  NEED TO HAVE A WAY TO UPDATE DB INFO
 
+    public void updateTask(Integer taskId, String taskName, Integer priority, Integer isChecked, String notes, String address){
+
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        //update task tools
+        String updateTaskPattern = "UPDATE %s SET %s, %s, %s, %s, %s WHERE %s;";
+        String UPDATE_PATTERN = "%s %s '%s'";
+        String taskTableUpdateStatement = String.format(updateTaskPattern,
+                // Table Name
+                DbContract.TaskTable.TABLE_NAME,
+                // Columns
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ITEMS, "=", taskName),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_CHECKED, "=", isChecked),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_PRIORITY, "=", priority),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_NOTES, "=", notes),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ADDRESS, "=", address),
+                //WHERE
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.TASK_ID, "=", taskId));
+
+        db.execSQL(taskTableUpdateStatement);
+        db.close();
+    }
 
 }

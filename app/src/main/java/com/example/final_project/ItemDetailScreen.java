@@ -20,9 +20,10 @@ public class ItemDetailScreen extends AppCompatActivity {
     private Integer taskId;
     private Integer listId;
     private Integer priority;
-
+    private TaskTableHelper mTaskTableHelper;
 
     private TextInputEditText noteField;
+    public static final String EXTRA_TASK_ADDRESS = "taskAddress";
 
     public static final String EXTRA_LIST_ID = "list id";
 
@@ -36,6 +37,7 @@ public class ItemDetailScreen extends AppCompatActivity {
         priority = intent.getIntExtra(TasksListScreen.EXTRA_TASK_PRIORITY, -1);
         taskNote = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NOTE);
         listId = intent.getIntExtra(TasksListScreen.EXTRA_LIST_ID, -1);
+        mTaskTableHelper = new TaskTableHelper(this);
 
         super.onCreate(savedInstanceState);
         setTitle(taskName);
@@ -44,7 +46,7 @@ public class ItemDetailScreen extends AppCompatActivity {
 
         noteField = findViewById(R.id.notesField);
         //FIXME:  TEST INPUT
-        taskNote = "My dogs rock";
+
         noteField.setText(taskNote);
 
 
@@ -80,6 +82,9 @@ public class ItemDetailScreen extends AppCompatActivity {
     }
 
     public void onCancel(View view){
+        taskNote = noteField.getText().toString();
+        address = "5th avenue";
+        mTaskTableHelper.updateTask(taskId, taskName, priority, priority, taskNote, address);
         Intent intent = new Intent(this, TasksListScreen.class);
         startActivity(intent);
     }
