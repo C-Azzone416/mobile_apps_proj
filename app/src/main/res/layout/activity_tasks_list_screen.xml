@@ -70,7 +70,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/item_edit_text"
             android:layout_width="320dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMed">
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.button.MaterialButton
@@ -78,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="addTaskToList"
-            android:text="@string/add_item"/>
+            android:text="@string/add_item"
+            android:layout_marginEnd="@dimen/marginSmall"/>
     </LinearLayout>
 
     <ListView
@@ -98,7 +100,7 @@
     android:layout_height="wrap_content"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintVertical_bias="1.0"
-    android:text="DONE"
+    android:text="@string/done"
     android:onClick="OnCancelButton"
     app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
     app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
