@@ -30,6 +30,7 @@ public class TasksListScreen extends AppCompatActivity {
     private static Integer tempId;
     private static String tempName;
     private ImageButton deleteButton;
+    private TextView taskTV;
 
     public static final String EXTRA_TASK_NAME = "task name";
     public static final String EXTRA_TASK_ADDRESS = "task address";
@@ -37,6 +38,7 @@ public class TasksListScreen extends AppCompatActivity {
     public static final String EXTRA_TASK_PRIORITY = "task priority";
     public static final String EXTRA_TASK_ID = "task id";
     public static final String EXTRA_LIST_ID = "list id";
+    public static final String EXTRA_IS_CHECKED = "is checked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class TasksListScreen extends AppCompatActivity {
         itemsList = findViewById(R.id.items_list);
         MaterialButton backBtn = findViewById(R.id.back_button);
         deleteButton = findViewById(R.id.todo_delete);
+
+        taskTV = findViewById(R.id.task_title);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +118,7 @@ public class TasksListScreen extends AppCompatActivity {
 
     public void deleteTask(View view){
 
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
+        ArrayList<Tasks> tasksList = mTaskHelper.getAllTasks(listId);
         Integer position = itemsList.getPositionForView(view);
         Tasks task = tasksList.get(position);
 
@@ -127,53 +131,27 @@ public class TasksListScreen extends AppCompatActivity {
     }
 
     private void openItemDetailActivity(View view){
-        //TODO: FIX THESE
-        //      items.remove(position);
-        //      adapter.notifyDataSetChanged();
-        //      FileHelper.writeData(items, this);
-        //      Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 
-
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
+        ArrayList<Tasks> tasksList = mTaskHelper.getAllTasks(listId);
         Integer position = itemsList.getPositionForView(view);
         Tasks task = tasksList.get(position);
 
         Intent intent = new Intent(TasksListScreen.this, ItemDetailScreen.class);
-        Integer priority = task.getPriority();
-        intent.putExtra(EXTRA_TASK_PRIORITY, priority);
-
-        String name = task.getTaskTitle();
-        intent.putExtra(EXTRA_TASK_NAME, name);
-
         Integer taskId = task.getTaskId();
         intent.putExtra(EXTRA_TASK_ID, taskId);
-
-       // Integer listId = task.getTaskId();
-        intent.putExtra(EXTRA_LIST_ID, listId);
-
-        String address = task.getTaskAddress();
-        intent.putExtra(EXTRA_TASK_ADDRESS, address);
-
-        String note = task.getTaskNote();
-        intent.putExtra(EXTRA_TASK_NOTE, note);
-
         startActivity(intent);
     }
 
-
-
-
-
-      private void updateTaskUI(){
-        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
-        if(adapter == null){
-            adapter = new ArrayAdapter<>(this, R.layout.master_task_item, R.id.task_title, tasksList);
-            itemsList.setAdapter(adapter);
-        }
-        else{
-            adapter.clear();
-            adapter.addAll(tasksList);
-            adapter.notifyDataSetChanged();
+  private void updateTaskUI(){
+    ArrayList<Tasks> tasksList = mTaskHelper.getAllTasks(listId);
+    if(adapter == null){
+        adapter = new ArrayAdapter<>(this, R.layout.master_task_item, R.id.task_title, tasksList);
+        itemsList.setAdapter(adapter);
+    }
+    else{
+        adapter.clear();
+        adapter.addAll(tasksList);
+        adapter.notifyDataSetChanged();
         }
 
     }

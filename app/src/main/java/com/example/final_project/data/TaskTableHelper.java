@@ -33,7 +33,42 @@ public class TaskTableHelper {
         db.close();
     }
 
-    public ArrayList<Tasks> getTasks(Integer listId){
+    public Tasks getSingleTask(Integer taskId){
+
+        Tasks task;
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + DbContract.TaskTable.TABLE_NAME + " WHERE " +
+                DbContract.TaskTable.TASK_ID + " = " + taskId;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+
+        Integer idx = cursor.getColumnIndex(DbContract.TaskTable.COL_IS_PRIORITY);
+        Integer isPriority = cursor.getInt(idx);
+
+        idx = cursor.getColumnIndex(DbContract.TaskTable.COL_IS_CHECKED);
+        Integer isChecked = cursor.getInt(idx);
+
+        idx = cursor.getColumnIndex(DbContract.TaskTable.FKEY_LIST_ID);
+        Integer fKey = cursor.getInt(idx);
+
+        idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_ITEMS);
+        String taskName = cursor.getString(idx);
+
+        idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_NOTES);
+        String taskNote = cursor.getString(idx);
+
+        idx = cursor.getColumnIndex(DbContract.TaskTable.COL_TODO_ADDRESS);
+        String taskAddress = cursor.getString(idx);
+        task = new Tasks(taskId, taskName, fKey, taskNote, taskAddress, isChecked, isPriority);
+
+        cursor.close();
+        db.close();
+
+        return task;
+    }
+
+    public ArrayList<Tasks> getAllTasks(Integer listId){
         ArrayList<Tasks> mTasksArray = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
 

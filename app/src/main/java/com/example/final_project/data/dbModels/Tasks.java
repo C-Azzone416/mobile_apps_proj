@@ -21,15 +21,16 @@ public class Tasks {
         mTaskNote = "";
     }
 
-    public Tasks(Integer num, String taskName, Integer fKey, String taskNote, String taskAddress, Integer isChecked, Integer isPriority){
+    public Tasks(Integer num, String taskName, Integer fKey, String taskNote, String taskAddress, Integer isChecked, Integer priority){
         mTaskId = num;
         mTaskTitle = taskName;
         mForeignKey = fKey;
         mIsChecked = isChecked;
-        mHasPriority = isPriority;
+        mHasPriority = priority;
         mTaskAddress = taskAddress;
         mTaskNote = taskNote;
     }
+
 
     public String toString(){
         return mTaskTitle;

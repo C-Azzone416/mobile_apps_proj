@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.RadioGroup;
 
 import com.example.final_project.data.TaskTableHelper;
+import com.example.final_project.data.dbModels.Tasks;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ItemDetailScreen extends AppCompatActivity {
@@ -18,9 +19,11 @@ public class ItemDetailScreen extends AppCompatActivity {
     private String taskName;
     private String taskNote;
     private Integer taskId;
-    private Integer listId;
+    private Integer isChecked;
     private Integer priority;
     private TaskTableHelper mTaskTableHelper;
+    private MaterialRadioButton checkedButton;
+    private Tasks mTask;
 
     private TextInputEditText noteField;
     public static final String EXTRA_TASK_ADDRESS = "taskAddress";
@@ -31,29 +34,37 @@ public class ItemDetailScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
-        taskName = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NAME);
-        address = intent.getStringExtra(TasksListScreen.EXTRA_TASK_ADDRESS);
+
         taskId = intent.getIntExtra(TasksListScreen.EXTRA_TASK_ID, -1);
-        priority = intent.getIntExtra(TasksListScreen.EXTRA_TASK_PRIORITY, -1);
-        taskNote = intent.getStringExtra(TasksListScreen.EXTRA_TASK_NOTE);
-        listId = intent.getIntExtra(TasksListScreen.EXTRA_LIST_ID, -1);
         mTaskTableHelper = new TaskTableHelper(this);
+        mTask = mTaskTableHelper.getSingleTask(taskId);
+        taskName = mTask.getTaskTitle();
+        address = mTask.getTaskAddress();
+        priority = mTask.getPriority();
+        taskNote = mTask.getTaskNote();
+        isChecked = mTask.getIsChecked();
 
         super.onCreate(savedInstanceState);
-        setTitle(taskName);
         setContentView(R.layout.activity_item_detail_screen);
-        setPriority(priority);
+
+        setTitle(taskName);
+        setPriorityView(priority);
 
         noteField = findViewById(R.id.notesField);
-        //FIXME:  TEST INPUT
-
         noteField.setText(taskNote);
 
-
+        RadioGroup urgencyRadioGroup = findViewById(R.id.urgencyRadioGroup);
+        urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                checkedButton = (MaterialRadioButton) radioGroup.findViewById(i);
+                updatePriority(checkedButton);
+            }
+        });
 
     }
 
-    public void setPriority(Integer priority){
+    public void setPriorityView(Integer priority){
         RadioGroup group = findViewById(R.id.urgencyRadioGroup);
         switch (priority){
             case 0:
@@ -64,6 +75,23 @@ public class ItemDetailScreen extends AppCompatActivity {
                 break;
             case 2:
                 group.check(R.id.urgentPriority);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void updatePriority (MaterialRadioButton checkedButton){
+
+        switch(checkedButton.getId()){
+            case R.id.lowPriority:
+                priority = 0;
+                break;
+            case R.id.normalPriority:
+                priority = 1;
+                break;
+            case R.id.urgentPriority:
+                priority = 2;
                 break;
             default:
                 break;
@@ -82,11 +110,25 @@ public class ItemDetailScreen extends AppCompatActivity {
     }
 
     public void onCancel(View view){
+
+        //TODO:  NEED TO MAKE SURE SAVE BUTTON ACTUALLY PULLS VALUES FROM TEXT FIELD AND RADIO BUTTON
+        //this needs to be deleted when we get our save button working
         taskNote = noteField.getText().toString();
         address = "5th avenue";
-        mTaskTableHelper.updateTask(taskId, taskName, priority, priority, taskNote, address);
+        mTaskTableHelper.updateTask(taskId, taskName, priority, isChecked, taskNote, address);
+
+        //this stays here
         Intent intent = new Intent(this, TasksListScreen.class);
         startActivity(intent);
     }
+
+    public void onSave(View view){
+        taskNote = noteField.getText().toString();
+        //getAddress
+        mTaskTableHelper.updateTask(taskId, taskName, priority, isChecked, taskNote, address);
+        Intent intent = new Intent(this, TasksListScreen.class);
+        startActivity(intent);
+    }
+
 
 }
