@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class TasksListScreen extends AppCompatActivity {
     private String listName;
     private static Integer tempId;
     private static String tempName;
+    private ImageButton deleteButton;
 
     public static final String EXTRA_TASK_NAME = "task name";
     public static final String EXTRA_TASK_ADDRESS = "task address";
@@ -54,6 +56,7 @@ public class TasksListScreen extends AppCompatActivity {
         MaterialButton addBtn = findViewById(R.id.add_item_button);
         itemsList = findViewById(R.id.items_list);
         MaterialButton backBtn = findViewById(R.id.back_button);
+        deleteButton = findViewById(R.id.todo_delete);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +110,16 @@ public class TasksListScreen extends AppCompatActivity {
         //TODO:  DON'T NEED THIS AT THIS TIME  FileHelper.writeData(items, this);
 
         Toast.makeText(this, "Item Added", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteTask(View view){
+
+        ArrayList<Tasks> tasksList = mTaskHelper.getTasks(listId);
+        Integer position = itemsList.getPositionForView(view);
+        Tasks task = tasksList.get(position);
+
+        mTaskHelper.deleteSingleTask(task.getTaskId());
+        updateTaskUI();
     }
 
     public void OnTaskItemClick(View view){

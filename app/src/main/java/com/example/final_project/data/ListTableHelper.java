@@ -59,8 +59,20 @@ public class ListTableHelper {
     }
 
     public  void deleteList(Integer id){
-        //TODO:  DELETE LIST
+
+       SQLiteDatabase db = mHelper.getWritableDatabase();
+       String deleteListPattern = "DELETE FROM %s WHERE %s";
+       String List_DELETE_PATTERN = "%s %s '%s'";
+       String deleteListStatement = String.format(deleteListPattern,
+               //TABLE NAME
+               DbContract.ListTable.TABLE_NAME,
+               //LIST TO DELETE CONDITION
+                String.format(List_DELETE_PATTERN, DbContract.ListTable.LIST_ID, "=", id));
+       db.execSQL(deleteListStatement);
+       db.close();
+
     }
+
 
 
 }

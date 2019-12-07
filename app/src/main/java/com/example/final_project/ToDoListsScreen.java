@@ -11,10 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.final_project.data.ListTableHelper;
+import com.example.final_project.data.TaskTableHelper;
 import com.example.final_project.data.dbModels.ToDoLists;
 
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ public class ToDoListsScreen extends AppCompatActivity {
     private static final String TAG = "placeholder";
     private ListView mTaskListView;
     private ArrayAdapter<ToDoLists> mAdapter;
-    private TextView deleteButton;
+    private TextView listTitleTV;
+    private ImageButton deleteButton;
     public static final String EXTRA_LISTNAME = "list name";
     private ListTableHelper mListTableHelper;
+    private TaskTableHelper mTaskTableHelper;
     public static final String EXTRA_LIST_ID = "listid";
 
     @Override
@@ -34,11 +38,10 @@ public class ToDoListsScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_lists_screen);
         mListTableHelper = new ListTableHelper(this);
+        mTaskTableHelper = new TaskTableHelper(this);
         mTaskListView = findViewById(R.id.master_todo_list);
-        deleteButton = findViewById(R.id.list_title);
-
-
-        //TODO:  SET ONCLICK FOR DELETE BUTTON
+        listTitleTV = findViewById(R.id.list_title);
+        deleteButton = findViewById(R.id.deleteButton);
 
         updateListUI();
     }
@@ -47,6 +50,34 @@ public class ToDoListsScreen extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
+        updateListUI();
+    }
+
+    private void updateListUI() {
+
+        ArrayList<ToDoLists>todoListsList = mListTableHelper.getLists();
+        if (mAdapter == null) {
+            mAdapter = new ArrayAdapter<>(this, R.layout.master_todo_list,
+                    R.id.list_title, todoListsList);
+            mTaskListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.clear();
+            mAdapter.addAll(todoListsList);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void deleteList(View view){
+
+        //get list from view
+        ArrayList<ToDoLists>todoListsList = mListTableHelper.getLists();
+        Integer position = mTaskListView.getPositionForView(view);
+        ToDoLists list = todoListsList.get(position);
+
+        //delete matching tasks first, then delete from list table
+        mTaskTableHelper.deleteAllTasksFromList(list.getListId());
+        mListTableHelper.deleteList(list.getListId());
+
         updateListUI();
     }
 
@@ -86,39 +117,11 @@ public class ToDoListsScreen extends AppCompatActivity {
         }
     }
 
-    private void updateListUI() {
-
-        ArrayList<ToDoLists>todoListsList = mListTableHelper.getLists();
-        if (mAdapter == null) {
-            mAdapter = new ArrayAdapter<>(this, R.layout.master_todo_list,
-                    R.id.list_title, todoListsList);
-            mTaskListView.setAdapter(mAdapter);
-        } else {
-            mAdapter.clear();
-            mAdapter.addAll(todoListsList);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-
-//    public void deleteList(View view){
-//        View parent = (View) view.getParent();
-//        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
-//        String task = String.valueOf(taskTextView.getText());
-//        SQLiteDatabase db = mHelper.getWritableDatabase();
-//        db.delete(DbContract.ListTable.TABLE_NAME, DbContract.ListTable.COL_LIST_TITLE + " = ?",
-//                new String[]{task});
-//        db.close();
-//        updateListUI();
-//    }
-
     public void detailTask(View view){
         openTasksListScreenActivity(view);
     }
 
     private void openTasksListScreenActivity(View view) {
-
-        //TODO:  TESTING
        ArrayList<ToDoLists>todoListsList = mListTableHelper.getLists();
        Integer position = mTaskListView.getPositionForView(view);
 

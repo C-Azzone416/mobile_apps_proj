@@ -75,8 +75,6 @@ public class TaskTableHelper {
         return mTasksArray;
     }
 
-    //TODO:  NEED TO HAVE A WAY TO UPDATE DB INFO
-
     public void updateTask(Integer taskId, String taskName, Integer priority, Integer isChecked, String notes, String address){
 
 
@@ -97,6 +95,37 @@ public class TaskTableHelper {
                 String.format(UPDATE_PATTERN, DbContract.TaskTable.TASK_ID, "=", taskId));
 
         db.execSQL(taskTableUpdateStatement);
+        db.close();
+    }
+
+    //TODO:  NEED TO DELETE TASKS FROM TABLE
+    public void deleteSingleTask(Integer taskId){
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        String deleteListPattern = "DELETE FROM %s WHERE %s";
+        String List_DELETE_PATTERN = "%s %s '%s'";
+        String deleteListStatement = String.format(deleteListPattern,
+                //TABLE NAME
+                DbContract.TaskTable.TABLE_NAME,
+                //LIST TO DELETE CONDITION
+                String.format(List_DELETE_PATTERN, DbContract.TaskTable.TASK_ID, "=", taskId));
+        db.execSQL(deleteListStatement);
+        db.close();
+
+
+    }
+
+    public void deleteAllTasksFromList(Integer fkey){
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        String deleteListPattern = "DELETE FROM %s WHERE %s";
+        String List_DELETE_PATTERN = "%s %s '%s'";
+        String deleteListStatement = String.format(deleteListPattern,
+                //TABLE NAME
+                DbContract.TaskTable.TABLE_NAME,
+                //LIST TO DELETE CONDITION
+                String.format(List_DELETE_PATTERN, DbContract.TaskTable.FKEY_LIST_ID, "=", fkey));
+        db.execSQL(deleteListStatement);
         db.close();
     }
 
