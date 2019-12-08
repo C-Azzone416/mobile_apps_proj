@@ -169,8 +169,6 @@ public class TaskTableHelper {
                 String.format(LIST_DELETE_PATTERN, DbContract.TaskTable.TASK_ID, taskId));
         db.execSQL(deleteListStatement);
         db.close();
-
-
     }
 
     public void deleteAllTasksFromList(Integer fkey){

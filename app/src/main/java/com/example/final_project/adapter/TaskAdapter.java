@@ -22,7 +22,6 @@ import com.example.final_project.data.dbModels.Tasks;
 import java.util.List;
 
 public class TaskAdapter extends ArrayAdapter<Tasks>{
-    public Integer checked;
 
 
     public TaskAdapter(@NonNull Context context, int resource, @NonNull List<Tasks> objects) {
@@ -34,7 +33,7 @@ public class TaskAdapter extends ArrayAdapter<Tasks>{
     public View getView(int position, View taskView, ViewGroup container) {
 
 
-        if (taskView == null) {
+        if (true) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             taskView = inflater.inflate(R.layout.master_task_item, container, false);
         }
@@ -43,7 +42,7 @@ public class TaskAdapter extends ArrayAdapter<Tasks>{
         ((TextView) taskView.findViewById(R.id.task_title))
             .setText(taskForView.getTaskTitle());
 
-        checked = taskForView.getIsChecked();
+        Integer checked = taskForView.getIsChecked();
         Boolean isChecked = false;
         if(checked == 1 ){
             isChecked = true;
