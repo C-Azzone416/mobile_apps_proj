@@ -13,6 +13,8 @@ import java.util.ArrayList;
 //manages TaskTable from DB
 public class TaskTableHelper {
     public DbHelper mHelper;
+    private final String UPDATE_PATTERN = "%s = '%s'";
+    private final String LIST_DELETE_PATTERN = "%s = '%s'";
 
     public TaskTableHelper(Context context){
         mHelper = new DbHelper(context);
@@ -110,56 +112,74 @@ public class TaskTableHelper {
         return mTasksArray;
     }
 
-    public void updateTask(Integer taskId, String taskName, Integer priority, Integer isChecked, String notes, String address){
-
-
+    public void updateIsChecked(Integer taskId, boolean b){
+        Integer isChecked;
+        if(b){
+            isChecked = 1;
+        }
+        else{
+            isChecked = 0;
+        }
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        //update task tools
-        String updateTaskPattern = "UPDATE %s SET %s, %s, %s, %s, %s WHERE %s;";
-        String UPDATE_PATTERN = "%s %s '%s'";
-        String taskTableUpdateStatement = String.format(updateTaskPattern,
+        //update helpers
+        String updateIsCheckedPattern = "UPDATE %s SET %s WHERE %s;";
+        String taskTableUpdateStatement = String.format(updateIsCheckedPattern,
                 // Table Name
                 DbContract.TaskTable.TABLE_NAME,
                 // Columns
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ITEMS, "=", taskName),
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_CHECKED, "=", isChecked),
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_PRIORITY, "=", priority),
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_NOTES, "=", notes),
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ADDRESS, "=", address),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_CHECKED, isChecked),
                 //WHERE
-                String.format(UPDATE_PATTERN, DbContract.TaskTable.TASK_ID, "=", taskId));
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.TASK_ID, taskId));
 
         db.execSQL(taskTableUpdateStatement);
         db.close();
     }
 
-    //TODO:  NEED TO DELETE TASKS FROM TABLE
+    public void updateTask(Integer taskId, String taskName, Integer priority, Integer isChecked, String notes, String address){
+
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        //update task helpers
+        String updateTaskPattern = "UPDATE %s SET %s, %s, %s, %s, %s WHERE %s;";
+        String taskTableUpdateStatement = String.format(updateTaskPattern,
+                // Table Name
+                DbContract.TaskTable.TABLE_NAME,
+                // Columns
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ITEMS, taskName),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_CHECKED, isChecked),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_IS_PRIORITY, priority),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_NOTES, notes),
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.COL_TODO_ADDRESS, address),
+                //WHERE
+                String.format(UPDATE_PATTERN, DbContract.TaskTable.TASK_ID, taskId));
+
+        db.execSQL(taskTableUpdateStatement);
+        db.close();
+    }
+
     public void deleteSingleTask(Integer taskId){
 
         SQLiteDatabase db = mHelper.getWritableDatabase();
+        //delete task helpers
         String deleteListPattern = "DELETE FROM %s WHERE %s";
-        String List_DELETE_PATTERN = "%s %s '%s'";
         String deleteListStatement = String.format(deleteListPattern,
                 //TABLE NAME
                 DbContract.TaskTable.TABLE_NAME,
                 //LIST TO DELETE CONDITION
-                String.format(List_DELETE_PATTERN, DbContract.TaskTable.TASK_ID, "=", taskId));
+                String.format(LIST_DELETE_PATTERN, DbContract.TaskTable.TASK_ID, taskId));
         db.execSQL(deleteListStatement);
         db.close();
-
-
     }
 
     public void deleteAllTasksFromList(Integer fkey){
 
         SQLiteDatabase db = mHelper.getWritableDatabase();
         String deleteListPattern = "DELETE FROM %s WHERE %s";
-        String List_DELETE_PATTERN = "%s %s '%s'";
         String deleteListStatement = String.format(deleteListPattern,
                 //TABLE NAME
                 DbContract.TaskTable.TABLE_NAME,
                 //LIST TO DELETE CONDITION
-                String.format(List_DELETE_PATTERN, DbContract.TaskTable.FKEY_LIST_ID, "=", fkey));
+                String.format(LIST_DELETE_PATTERN, DbContract.TaskTable.FKEY_LIST_ID, fkey));
         db.execSQL(deleteListStatement);
         db.close();
     }

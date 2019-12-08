@@ -55,12 +55,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL(taskTableCreateStatement);
 
-        // TODO: setup Index on ListId in Task Table
-        /**
-         * example create statement
-         * CREATE [UNIQUE] INDEX index_name
-         * ON table_name(column_list);
-         */
     }
 
     @Override
