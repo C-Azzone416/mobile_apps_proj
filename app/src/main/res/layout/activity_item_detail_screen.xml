@@ -103,8 +103,8 @@
         app:hintEnabled="true"
         android:hint="NOTES:"/>
 
-    <!--TODO:  SHAYNE  CAN YOU ADD AN ADDRESS INPUT TEXT FIELD HERE SO USER CAN ENTER ADDRESS.-->
-    <!-- THEN WHEN USE CLICKS MAP IT WILL PULL UP THE ADDRESS-->
+    <!--COMPLETED:  SHAYNE  CAN YOU ADD AN ADDRESS INPUT TEXT FIELD HERE SO USER CAN ENTER ADDRESS.-->
+    <!-- COMPLETED: THEN WHEN USE CLICKS MAP IT WILL PULL UP THE ADDRESS-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/addressField"
@@ -137,26 +137,28 @@
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
         android:onClick="onCancel"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
         app:layout_constraintLeft_toRightOf="@+id/vGuideline1"
         app:layout_constraintRight_toLeftOf="@+id/vGuideline2"
-        app:layout_constraintTop_toBottomOf="@+id/hGuideline3"/>
+        app:layout_constraintTop_toBottomOf="@+id/hGuideline4"
+        app:layout_constraintVertical_bias="0.25"
+        app:rippleColor="@color/colorAccent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onSave"
         android:text="@string/done"
-        app:layout_constraintBottom_toTopOf="@+id/hGuideline4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toRightOf="@+id/vGuideline2"
         app:layout_constraintRight_toLeftOf="@+id/vGuideline3"
-        app:layout_constraintTop_toBottomOf="@+id/hGuideline3"
-        app:layout_constraintVertical_bias="1.0" />
-        <!-- TODO: Implement onClick method for this button -->
+        app:layout_constraintTop_toBottomOf="@+id/hGuideline4"
+        app:layout_constraintVertical_bias="0.25" />
+        <!-- COMPLETED: Implement onClick method for this button -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

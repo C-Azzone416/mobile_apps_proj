@@ -24,11 +24,12 @@ public class ItemDetailScreen extends AppCompatActivity {
     private TaskTableHelper mTaskTableHelper;
     private MaterialRadioButton checkedButton;
     private Tasks mTask;
-
+    private TextInputEditText addressField;
     private TextInputEditText noteField;
     public static final String EXTRA_TASK_ADDRESS = "taskAddress";
 
     public static final String EXTRA_LIST_ID = "list id";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,9 @@ public class ItemDetailScreen extends AppCompatActivity {
 
         noteField = findViewById(R.id.notesField);
         noteField.setText(taskNote);
+
+        addressField = findViewById(R.id.addressField);
+        addressField.setText(address);
 
         RadioGroup urgencyRadioGroup = findViewById(R.id.urgencyRadioGroup);
         urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -94,11 +98,8 @@ public class ItemDetailScreen extends AppCompatActivity {
         }
     }
 
-    public void setAddress(String address){
-        //TODO: ADD ADDRESS FIELD SO CAN DISPLAY ADDRESS
-    }
-
     public void onMapBtnClick(View view) {
+        address = addressField.getText().toString();
         String place = address;
         String placeUri = String.format("geo:0,0?q=(%s)", place);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(placeUri));
@@ -106,12 +107,6 @@ public class ItemDetailScreen extends AppCompatActivity {
     }
 
     public void onCancel(View view){
-
-        //TODO:  NEED TO MAKE SURE SAVE BUTTON ACTUALLY PULLS VALUES FROM TEXT FIELD AND RADIO BUTTON
-        //this needs to be deleted when we get our save button working
-        taskNote = noteField.getText().toString();
-        address = "5th avenue";
-        mTaskTableHelper.updateTask(taskId, taskName, priority, isChecked, taskNote, address);
 
         //this stays here
         Intent intent = new Intent(this, TasksListScreen.class);
@@ -121,6 +116,7 @@ public class ItemDetailScreen extends AppCompatActivity {
     public void onSave(View view){
         taskNote = noteField.getText().toString();
         //getAddress
+        address = addressField.getText().toString();
         mTaskTableHelper.updateTask(taskId, taskName, priority, isChecked, taskNote, address);
         Intent intent = new Intent(this, TasksListScreen.class);
         startActivity(intent);

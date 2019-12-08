@@ -33,6 +33,7 @@ public class ToDoListsScreen extends AppCompatActivity {
     private TaskTableHelper mTaskTableHelper;
     public static final String EXTRA_LIST_ID = "listid";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,7 @@ public class ToDoListsScreen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
-        //TODO:  I think it may be worth trying to add some options to the menu on each screen
+        //COMPLETED:  I think it may be worth trying to add some options to the menu on each screen
         //        for example this one has add a list and maybe add a "logout" on this page
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -112,6 +113,9 @@ public class ToDoListsScreen extends AppCompatActivity {
                         .create();
                 dialog.show();
                 return true;
+            case R.id.action_logout:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
