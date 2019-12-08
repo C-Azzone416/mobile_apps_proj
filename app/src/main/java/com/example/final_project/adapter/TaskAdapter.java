@@ -32,11 +32,9 @@ public class TaskAdapter extends ArrayAdapter<Tasks>{
     @Override
     public View getView(int position, View taskView, ViewGroup container) {
 
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        taskView = inflater.inflate(R.layout.master_task_item, container, false);
 
-        if (true) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            taskView = inflater.inflate(R.layout.master_task_item, container, false);
-        }
 
         Tasks taskForView = getItem(position);
         ((TextView) taskView.findViewById(R.id.task_title))
