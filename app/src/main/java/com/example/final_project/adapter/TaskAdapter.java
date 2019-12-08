@@ -1,23 +1,19 @@
 package com.example.final_project.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
-import com.example.final_project.data.TaskTableHelper;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.checkbox.MaterialCheckBox;
-
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 
 import com.example.final_project.R;
+import com.example.final_project.data.TaskTableHelper;
 import com.example.final_project.data.dbModels.Tasks;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.util.List;
 
@@ -34,7 +30,6 @@ public class TaskAdapter extends ArrayAdapter<Tasks>{
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         taskView = inflater.inflate(R.layout.master_task_item, container, false);
-
 
         Tasks taskForView = getItem(position);
         ((TextView) taskView.findViewById(R.id.task_title))
@@ -54,15 +49,9 @@ public class TaskAdapter extends ArrayAdapter<Tasks>{
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    tableHelper.updateIsChecked(taskId, b);
-                }
-                else{
-                    tableHelper.updateIsChecked(taskId, b);
-                }
+               tableHelper.updateIsChecked(taskId, b);
             }
         });
-
         return taskView;
     }
 
