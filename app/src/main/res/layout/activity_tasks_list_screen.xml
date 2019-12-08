@@ -35,14 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.13132694" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/hGuideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_begin="219dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/hGuideline3"
@@ -65,7 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/hGuideline1"
-        app:layout_constraintBottom_toTopOf="@id/hGuideline2"
         app:layout_constraintLeft_toRightOf="@id/vGuideline1"
         app:layout_constraintRight_toLeftOf="@id/vGuideline3">
 
@@ -90,7 +89,7 @@
         android:id="@+id/scrollLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/hGuideline2"
+        app:layout_constraintTop_toBottomOf="@id/inputTextWithButton"
         app:layout_constraintBottom_toBottomOf="parent">
 
 
@@ -98,8 +97,7 @@
         android:id="@+id/items_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/inputTextWithButton"
-        app:layout_constraintBottom_toTopOf="@id/hGuideline3"
+        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/vGuideline1"
         app:layout_constraintRight_toLeftOf="@id/vGuideline3">
     </ListView>
@@ -120,7 +118,6 @@
         app:layout_constraintTop_toBottomOf="@+id/hGuideline4"
         app:layout_constraintVertical_bias="0.25" />
 
-    <!--TODO:  IMPLEMENT BACK ONCLICK-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -17,7 +17,6 @@ public class ListTableHelper {
 
     public ListTableHelper(Context context){
         mHelper = new DbHelper(context);
-
     }
 
     public void createList(String listName){

@@ -72,10 +72,10 @@ public class ItemDetailScreen extends AppCompatActivity {
         RadioGroup group = findViewById(R.id.urgencyRadioGroup);
         switch (priority){
 
-            case 1:
+            case 0:
                 group.check(R.id.normalPriority);
                 break;
-            case 2:
+            case 1:
                 group.check(R.id.urgentPriority);
                 break;
             default:
@@ -88,10 +88,10 @@ public class ItemDetailScreen extends AppCompatActivity {
         switch(checkedButton.getId()){
 
             case R.id.normalPriority:
-                priority = 1;
+                priority = 0;
                 break;
             case R.id.urgentPriority:
-                priority = 2;
+                priority = 1;
                 break;
             default:
                 break;
@@ -100,22 +100,19 @@ public class ItemDetailScreen extends AppCompatActivity {
 
     public void onMapBtnClick(View view) {
         address = addressField.getText().toString();
-        String place = address;
-        String placeUri = String.format("geo:0,0?q=(%s)", place);
+
+        String placeUri = String.format("geo:0,0?q=(%s)", address);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(placeUri));
         startActivity(intent);
     }
 
     public void onCancel(View view){
-
-        //this stays here
         Intent intent = new Intent(this, TasksListScreen.class);
         startActivity(intent);
     }
 
     public void onSave(View view){
         taskNote = noteField.getText().toString();
-        //getAddress
         address = addressField.getText().toString();
         mTaskTableHelper.updateTask(taskId, taskName, priority, isChecked, taskNote, address);
         Intent intent = new Intent(this, TasksListScreen.class);

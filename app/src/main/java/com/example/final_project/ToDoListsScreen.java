@@ -85,8 +85,6 @@ public class ToDoListsScreen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
-        //COMPLETED:  I think it may be worth trying to add some options to the menu on each screen
-        //        for example this one has add a list and maybe add a "logout" on this page
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -97,8 +95,8 @@ public class ToDoListsScreen extends AppCompatActivity {
             case R.id.action_add_task:
                 final EditText taskEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setTitle("Add a New Task")
-                        .setMessage("What would you like to Add?")
+                        .setTitle("Add a New List")
+                        .setMessage("What list would you like to Add?")
                         .setView(taskEditText)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override

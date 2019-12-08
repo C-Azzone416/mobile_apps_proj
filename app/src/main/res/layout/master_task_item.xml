@@ -5,43 +5,42 @@
     android:id="@+id/task_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/marginLg"
+    android:layout_marginBottom="@dimen/marginMed"
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingStart="@dimen/marginMed">
+    android:paddingStart="@dimen/marginLg"
+    android:paddingEnd="@dimen/marginLg">
 
 
-
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/task_checkable"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:focusable="true"
         android:clickable="true"
-        android:paddingBottom="@dimen/marginSmall"/>
+        android:focusable="true"
+        android:paddingBottom="@dimen/marginSmall" />
 
     <TextView
         android:id="@+id/task_title"
-        android:layout_width="260dp"
+        android:layout_width="270dp"
         android:layout_height="match_parent"
         android:clickable="true"
         android:onClick="OnTaskItemClick"
         android:textSize="@dimen/textInputSize"
         android:paddingTop="@dimen/marginMedRare"/>
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/todo_delete"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:clickable="true"
         android:focusable="true"
         android:onClick="deleteTask"
-        android:backgroundTint="@color/colorWhite"
         android:paddingEnd="@dimen/marginMed"
-        app:icon="@drawable/ic_delete_forever_black_24dp"
-        app:iconTint="@color/colorPrimaryDark"/>
+        app:srcCompat="@drawable/ic_delete_forever_black_24dp"
+        android:backgroundTint="@color/colorWhite"/>
 
 
 

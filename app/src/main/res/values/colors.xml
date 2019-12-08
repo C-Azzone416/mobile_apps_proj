@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="lightGray">#808080</color>
-    <color name="colorAccent">#C91A00</color>
+    <color name="colorAccent">#404040</color>
+    <color name="urgentColor">#C91A00</color>
     <color name="yellow">#F5D142</color>
 </resources>

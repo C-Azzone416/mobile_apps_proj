@@ -2,9 +2,14 @@ package com.example.final_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,9 +17,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.final_project.adapter.TaskAdapter;
 import com.example.final_project.data.TaskTableHelper;
 import com.example.final_project.data.dbModels.Tasks;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -23,22 +30,17 @@ public class TasksListScreen extends AppCompatActivity {
 
     private TextInputEditText itemET;
     private ListView itemsList;
-    private ArrayAdapter<Tasks> adapter;
+    private TaskAdapter adapter;
     private TaskTableHelper mTaskHelper;
     private Integer listId;
     private String listName;
     private static Integer tempId;
     private static String tempName;
-    private MaterialButton deleteButton;
+    private ImageButton deleteButton;
     private TextView taskTV;
 
-    public static final String EXTRA_TASK_NAME = "task name";
-    public static final String EXTRA_TASK_ADDRESS = "task address";
-    public static final String EXTRA_TASK_NOTE = "task note";
-    public static final String EXTRA_TASK_PRIORITY = "task priority";
     public static final String EXTRA_TASK_ID = "task id";
-    public static final String EXTRA_LIST_ID = "list id";
-    public static final String EXTRA_IS_CHECKED = "is checked";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,6 @@ public class TasksListScreen extends AppCompatActivity {
         itemsList = findViewById(R.id.items_list);
         MaterialButton backBtn = findViewById(R.id.back_button);
         deleteButton = findViewById(R.id.todo_delete);
-
         taskTV = findViewById(R.id.task_title);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +77,11 @@ public class TasksListScreen extends AppCompatActivity {
             }
         });
         updateTaskUI();
+
+
     }
+
+
 
     @Override
     protected void onStop() {
@@ -85,7 +90,7 @@ public class TasksListScreen extends AppCompatActivity {
         tempName = listName;
     }
 
-    //TODO:  WORK ON LIFECYCLE CHANGES
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -103,10 +108,9 @@ public class TasksListScreen extends AppCompatActivity {
         itemET.setText("");
         updateTaskUI();
 
-        //TODO:  DON'T NEED THIS AT THIS TIME  FileHelper.writeData(items, this);
-
         Toast.makeText(this, "Item Added", Toast.LENGTH_SHORT).show();
     }
+
 
     public void deleteTask(View view){
 
@@ -137,7 +141,7 @@ public class TasksListScreen extends AppCompatActivity {
   private void updateTaskUI(){
     ArrayList<Tasks> tasksList = mTaskHelper.getAllTasks(listId);
     if(adapter == null){
-        adapter = new ArrayAdapter<>(this, R.layout.master_task_item, R.id.task_title, tasksList);
+        adapter = new TaskAdapter(this, R.layout.master_task_item, tasksList);
         itemsList.setAdapter(adapter);
     }
     else{
