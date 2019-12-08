@@ -67,9 +67,7 @@ public class ItemDetailScreen extends AppCompatActivity {
     public void setPriorityView(Integer priority){
         RadioGroup group = findViewById(R.id.urgencyRadioGroup);
         switch (priority){
-            case 0:
-                group.check(R.id.lowPriority);
-                break;
+
             case 1:
                 group.check(R.id.normalPriority);
                 break;
@@ -84,9 +82,7 @@ public class ItemDetailScreen extends AppCompatActivity {
     public void updatePriority (MaterialRadioButton checkedButton){
 
         switch(checkedButton.getId()){
-            case R.id.lowPriority:
-                priority = 0;
-                break;
+
             case R.id.normalPriority:
                 priority = 1;
                 break;

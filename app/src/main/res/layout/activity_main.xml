@@ -7,11 +7,39 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_wb_sunny_black_24dp"
+            android:tint="@color/yellow">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/welcome"
+            android:paddingStart="@dimen/marginSmall"
+            android:paddingEnd="@dimen/loginMarginLarge"
+            android:paddingTop="@dimen/marginMed"
+            android:textSize="30sp">
+        </TextView>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
         android:id="@+id/login_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_vertical">
+
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/userName_input"
