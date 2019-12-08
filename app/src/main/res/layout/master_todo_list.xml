@@ -25,23 +25,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:onClick="deleteList"
-        app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
+        app:srcCompat="@drawable/ic_delete_forever_black_24dp"/>
 
-
-    <!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/master_details_item_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/details"-->
-<!--        android:onClick="detailTask"/>-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/master_delete_item_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/delete"-->
-<!--        android:onClick="deleteList"/>-->
-
-    <!--FIXME: DONE UNLESS WE WANT TO GO BACK. THIS BUTTON MAY BE BETTER AS AN END DRAWABLE TRASHCAN?  IT WOULD BE IN THE ENTIRE LINEAR LAYOUT -->
-    <!--FIXME:  MAY ALSO WANT TO HAVE THE ENTIRE LAYOUT BE CLICKABLE SO THAT THE ITEM WILL OPEN AND THEN WON'T NEED DETAIL BUTTON -->
 </LinearLayout>

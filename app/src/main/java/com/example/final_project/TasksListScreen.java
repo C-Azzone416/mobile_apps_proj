@@ -29,7 +29,7 @@ public class TasksListScreen extends AppCompatActivity {
     private String listName;
     private static Integer tempId;
     private static String tempName;
-    private ImageButton deleteButton;
+    private MaterialButton deleteButton;
     private TextView taskTV;
 
     public static final String EXTRA_TASK_NAME = "task name";
@@ -95,14 +95,6 @@ public class TasksListScreen extends AppCompatActivity {
             setTitle(listName);
         }
         updateTaskUI();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        //TODO:  THIS MENU SHOULD HAVE A SWITCH THAT ALLOWS YOU TO ADD A NEW TASK TO THE LIST,  RENAME LIST, AND MAYBE GO BACK TO MAIN LISTS SCREEN?
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     private void addTaskToList(View view){

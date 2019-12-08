@@ -19,4 +19,5 @@
     <string name="normal">Normal</string>
     <string name="done">DONE</string>
     <string name="address">Enter ADDRESS:</string>
+    <string name="addLists">Add LISTS ----------------></string>
 </resources>
